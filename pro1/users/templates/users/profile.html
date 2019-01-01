@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+{% load static %}
 <head>
 	{% if title %}
 		<title>{{ post.title }}</title>
@@ -8,7 +9,30 @@
 		<title>Profile</title>
 	{% endif %}
 </head>
-	<h1>{{ user.username }} </h1>
-	<h2>{{ user.email }} </h2>
-	<h3>{{ user.first_name }} {{ user.last_name }}</h3>
+<body>
+	<span>
+		<h1><img class="" src="{% static 'blog/images/user.png' %}" type="image/png" height="30" width="30">
+		{{ user.first_name }} {{ user.last_name }}
+		({{ user.username }}) </h1>
+	</span>
+	<br>
+	<p>
+		<h4>
+			<span class="glyphicon glyphicon-envelope"></span>
+			{{ user.email }} 
+		</h4>
+	</p>
+	<p>
+		<h4>
+			<span class="glyphicon glyphicon-briefcase"></span>
+			Branch : {{ Profile.branch }}
+		</h4>
+	</p>
+	<p>
+		<h4>
+			<span class="glyphicon glyphicon-pencil"></span>
+			{{ year }} Year
+		</h4>
+	</p>
+</body>
 {% endblock %}

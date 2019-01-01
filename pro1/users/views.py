@@ -16,6 +16,9 @@ from .tokens import account_activation_token
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Profile
+import datetime
+
+now = datetime.date.today()
 
 def register(request):
 	if request.method == 'POST':   ## data sent do further things ie validation checks
@@ -43,6 +46,7 @@ def register(request):
 def mail_sent(request):
 	return render(request, 'users/mail_sent.html')
 
+
 def activate(request, uidb64, token):
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))
@@ -66,4 +70,19 @@ def activate(request, uidb64, token):
 
 @login_required
 def profile(request):
-	return render(request,'users/profile.html')
+	#e_mail = str(User.email)
+	e_mail = "16test@btech.nitdgp.ac.in"
+	temp = '20' + e_mail[0:2]
+	year = int(now.year) - int(temp)
+	if year is 1 :
+		year = str(year) + 'st'
+	elif year is 2 :
+		year = str(year) + 'nd'
+	elif year is 3 :
+		year = str(year) + 'rd'
+	else :
+		year = str(year) + 'th'
+	context = {
+        'year': year,
+    }
+	return render(request,'users/profile.html', context)
